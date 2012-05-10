@@ -2,16 +2,16 @@
 
 import urllib,urllib2,time,md5,json
 
-#正式
-# sercetCode = '43f0e5f6881dbe428ca0c26422cf2487'
-# api_key = '12408725'
-# auth_url = 'http://container.api.taobao.com/container?appkey=%s' % api_key
-# taobao_url = 'http://gw.api.taobao.com/router/rest' #淘宝正式环境
-
-sercetCode = 'sandbox6881dbe428ca0c26422cf2487'
+# 正式
+sercetCode = '43f0e5f6881dbe428ca0c26422cf2487'
 api_key = '12408725'
-auth_url = 'http://container.api.tbsandbox.com/container?appkey=%s' % api_key
-taobao_url ='http://gw.api.tbsandbox.com/router/rest' #淘宝测试环境
+auth_url = 'http://container.api.taobao.com/container?appkey=%s' % api_key
+taobao_url = 'https://eco.taobao.com/router/rest' #淘宝正式环境
+
+# sercetCode = 'sandbox6881dbe428ca0c26422cf2487'
+# api_key = '12408725'
+# auth_url = 'http://container.api.tbsandbox.com/container?appkey=%s' % api_key
+# taobao_url ='http://gw.api.tbsandbox.com/router/rest' #淘宝测试环境
 #sign = 'slFDafsWNuIC5UyIw03hkA%3D%3D'
 
 error_msg = {
@@ -144,17 +144,17 @@ class TaoBao(object):
     def setFormat(self,format):
         if format in ('json','xml'):self.p['format'] = format
     def _sign(self):
-        self.p['timestamp'] = time.strftime('%Y-%m-%d %X',time.localtime())
+        # self.p['timestamp'] = time.strftime('%Y-%m-%d %X',time.localtime())
         if not self.p.get('fields'): self.p['fields'] = self.fields
-        self.p['method'] += self.method
-        self.p['api_key'] = api_key
-        for k,v in self.p.iteritems():
-            try:
-                self.p[k] = v.encode('utf8')
-            except AttributeError:
-                pass
-        src = sercetCode + ''.join(["%s%s" % (k, v) for k, v in sorted(self.p.items())])
-        self.p['sign'] = md5.new(src).hexdigest().upper()
+        self.p['method'] = 'taobao.'+self.method
+        # self.p['api_key'] = api_key
+        # for k,v in self.p.iteritems():
+        #     try:
+        #         self.p[k] = v.encode('utf8')
+        #     except AttributeError:
+        #         pass
+        # src = sercetCode + ''.join(["%s%s" % (k, v) for k, v in sorted(self.p.items())])
+        # self.p['sign'] = md5.new(src).hexdigest().upper()
     def fetch(self):
         self._sign()
         #self.p['session']=session
@@ -165,7 +165,7 @@ class TaoBao(object):
         rsp = urlopen.read()
         rsp = json.loads(rsp.decode('UTF-8'))
         if rsp.has_key('error_response'):
-            error_code = rsp['error_response']['sub_msg']
+            error_code = rsp['error_response']['msg']
             #if error_code == 27:raise Exception(error_code)
             self.error_msg = error_code
         else:
