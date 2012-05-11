@@ -21,6 +21,6 @@ def sold_items(request):
 	sold.fetch()
 	items = sold.datas
 	print items
-	return render_to_response("taobao/sold_items.html", RequestContext(request, {
+	return render_to_response("taobao/sold_items_mobile.html", RequestContext(request, {
 			'items':items,
                 }))
