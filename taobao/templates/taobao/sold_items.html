@@ -1,26 +1,8 @@
-{% extends "site_base.html" %}
 {% load i18n %}
-{% block category %}
 
-{% endblock category %}	
-{% load pagination_tags %}
-
-
-{% block extra_extra_script	 %}
-	
-	<script type="text/javascript">
-		$(function(){
-			
-		})
-	</script>
-{% endblock %}
-
-
-{% block main %}
 
 <div class=span12>
   {% if items %}
-    {% autopaginate items 10 %}
     <table class="table table-striped table-bordered" >
       <thead>
 	<tr>
@@ -65,7 +47,6 @@
 			 	<li><label>快递:</label>
 			 		<div class="input-append span2">
 			 			<input type=hidden value="{{order.tid}}">
-			 			<input type=text class=span1 value="{{item.post_fee}}"><a class=btn>修改</a>
 			 		</div>
 			 	</li>
 			 	<li>实付金额: {{item.payment}}</li>
@@ -80,8 +61,6 @@
       {% endfor %}
     </table>
     
-    {% paginate %}
   {% endif %}
 
   </div>
-    {% endblock main %}
