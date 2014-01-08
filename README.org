@@ -1,0 +1,54 @@
+Django Taobao
+------------------
+
+a django plugin for [[http://open.taobao.com][Taobao Open API]]
+
+** install
+#+BEGIN_SRC sh
+pip install django-taobao
+#+END_SRC
+
+** configure
+
+currently it's highly depand on [[https://github.com/omab/python-social-auth][python-social-auth]] for OAuth2
+authentication. so the only thing you need to do for authentication is
+open your django =settings.py= and add these variable:
+
+#+BEGIN_SRC python
+  INSTALLED_APPS = (
+      ...
+      'django_taobao',
+      'django_social_auth.apps.django_app.default',
+  )
+  
+  AUTHENTICATION_BACKENDS = [
+      'social.backends.taobao.TAOBAOAuth',
+  ]
+  
+  SOCIAL_AUTH_TAOBAO_KEY = 'your client id'
+  SOCIAL_AUTH_TAOBAO_SECRET = 'your app secret'
+#+END_SRC
+
+now modify your =urls.py=
+#+BEGIN_SRC python
+  url(r'^taobao/', include('taobao.urls')), # this is taobao api example
+  url('', include('social.apps.django_app.urls', namespace='social')), # this is for auth
+#+END_SRC
+now you can just visit =youhost.com/login/taobao= login and get the =token=
+
+** about API
+
+now with the token just got, you can use taobao api now.
+
+the get sold list example in =view= show how to use the api
+
+#+BEGIN_SRC python
+@login_required
+def sold_items(request):
+    user = get_object_or_404(UserSocialAuth.objects.filter(provider='taobao'),user=request.user)
+    token = user.extra_data['access_token']
+    sold = TradesSoldGet()
+    sold.setParams(access_token=token)
+    sold.fetch()
+    return render_to_response("taobao/sold_items.html", RequestContext(request, {'items':sold.datas}))
+#+END_SRC

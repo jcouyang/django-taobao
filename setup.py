@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='django-taobao',
-    version='0.2.0',
+    version='0.2.1',
     author='Jichao Ouyang',
     author_email='oyanglulu@gmail.com',
     packages=['taobao','taobao.templates','taobao.taobaoapi2'],
