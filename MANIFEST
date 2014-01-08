@@ -6,6 +6,7 @@ taobao/admin.py
 taobao/forms.py
 taobao/models.py
 taobao/oauth.py
+taobao/setup.py
 taobao/urls.py
 taobao/views.py
 taobao/taobaoapi2/__init__.py

@@ -1,0 +1,15 @@
+language: python
+python:
+- '2.7'
+- pypy
+install:
+- pip install .
+- pip install -r requirements.txt
+deploy:
+  provider: pypi
+  user: oyanglulu
+  password:
+    secure: BzYWke7She/ibiEpqu3fDaWmFdlKryrMyvjl8OFQbzTtaab1ofY5nW5RP4Deei6AKW9dxglDbV77rK/B/HnEJUAU1gbZfwcwO/LJUEfff0Ymh11M2S1nnV8zDrF/SXjyY0njJglZcDjy066Pi4PZc+WHclhibDcuoSjj56hV6Q0=
+  on:
+    tags: true
+    repo: jcouyang/django-taobao
