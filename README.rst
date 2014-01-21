@@ -1,6 +1,8 @@
 django taobao
 ========
 
+.. image:: https://travis-ci.org/jcouyang/django-taobao.png
+
 a django plugin for `Taobao Open API <http://open.taobao.com>`_
 
 install
