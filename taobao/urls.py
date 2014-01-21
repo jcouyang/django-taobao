@@ -4,5 +4,5 @@ from taobao import views
 
 
 urlpatterns = patterns('',
-    url(r'^$', 'taobao.views.sold_items', name='solditems'),
+    url(r'^$', 'taobao.views.user_info', name='userinfo'),
 )

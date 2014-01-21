@@ -7,7 +7,7 @@ from taobaoapi import *
 from social.apps.django_app.default.models import UserSocialAuth
 
 @login_required
-def sold_items(request):
+def user_info(request):
     print request.user.id
     user = get_object_or_404(UserSocialAuth.objects.filter(provider='taobao'),user=request.user)
     token = user.extra_data['access_token']
