@@ -11,9 +11,5 @@ setup(
     keywords='django, taobao, oauth, api',
     description='Taobao SDK for django.',
     long_description=open('README.rst').read(),
-    install_requires=[
-        "Django >= 1.6",
-        "python-social-auth",
-    ],
 )
 
